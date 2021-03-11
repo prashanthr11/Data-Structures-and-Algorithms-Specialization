@@ -12,7 +12,6 @@ def solve(s):
     return
 
 
-
 n, m = map(int, input().split())
 d = dt(list)
 
