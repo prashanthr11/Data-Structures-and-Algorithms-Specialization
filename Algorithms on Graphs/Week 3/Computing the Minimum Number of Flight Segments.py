@@ -1,44 +1,37 @@
 from collections import defaultdict as dt
+import sys
 
 
-def solve(s, e):
-    l = [[s]]
-    cnt = 1
-    
-    while l:
-        front = l.pop(0)
-        
-        tmp = list()
-        
-        for i in front:
-            if not visited[i]:
-                visited[i] = True
-                for j in d[i]:
-                    if not visited[j]:
-                        tmp.append(j)
-            
-        if e in tmp:
-            return cnt
-            
-        if len(tmp):
-            l.append(tmp)
-            
-        cnt += 1
-        
-    return -1
-    
 
-n, m = map(int, input().split())
-d = dt(list)
+def main():
+	sys.setrecursionlimit(200000)
+	n, m = map(int, input().split())
+	d = dt(list)
 
-visited = [False] * (n + 1)
-visited[0] = True
+	for i in range(m):
+		x, y = map(int, input().split())
+		d[x].append(y)
+		d[y].append(x)
 
-for i in range(m):
-    a, b = map(int, input().split())
-    d[a].append(b)
-    d[b].append(a)
-    
-s, e = map(int, input().split())
+	source, destination = map(int, input().split())
+	queue = [(source, 0)]
+	visited = [False] * (n + 1)
+	visited[0] = True
+	visited[source] = True
 
-print(solve(s, e))
+	while queue:
+		# print(*queue)
+		front, cnt = queue.pop(0)
+		if front == destination:
+			return cnt
+
+		for i in d[front]:
+			if not visited[i]:
+				visited[i] = True
+				queue.append((i, cnt + 1))
+
+	return -1
+	
+
+if __name__ == '__main__':
+	print(main())
