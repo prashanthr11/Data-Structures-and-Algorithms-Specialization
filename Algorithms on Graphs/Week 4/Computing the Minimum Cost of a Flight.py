@@ -1,5 +1,5 @@
 '''
-Time Complexity: O(V * E)
+Time Complexity: O((V + E) * Log N)
 Space Complexity: O(V)
 '''
 
@@ -13,11 +13,11 @@ def solve(source, cost, visited, d):
     while pq:   # O(V)
         wt, source = heappop(pq)
         '''
-        As heaps in python doesn't support modifing priorities. So, we 
-        have to store all the modified distances for each vertex. In the 
+        As heaps in python doesn't support modifing priorities. So, we
+        have to store all the modified distances for each vertex. In the
         worst case, we store all modified distances and vertices. Although,
         we are processing each vertex once. but the storing is costly.
-        So, The Time complexity of min heap is O(Log N). Where N is the 
+        So, The Time complexity of min heap is O(Log N). Where N is the
         size of the min heap.
         '''
         if not visited[source]:
@@ -40,7 +40,7 @@ def main():
 
     source, destination = map(int, input().split())
     cost[source] = 0
-    
+
     solve(source, cost, visited, d)
 
     # print(*cost)
